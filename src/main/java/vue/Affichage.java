@@ -2,7 +2,6 @@ package vue;
 
 import metier.Connector;
 import metier.Statut;
-import metier.Transferer;
 import outils.Reseau;
 
 import java.util.ArrayList;
