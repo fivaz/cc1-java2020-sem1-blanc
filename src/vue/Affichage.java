@@ -2,6 +2,7 @@ package vue;
 
 import metier.Connector;
 import metier.Statut;
+import metier.Transferer;
 import outils.Reseau;
 
 import java.util.ArrayList;
@@ -15,16 +16,46 @@ public class Affichage {
     private Statut statut = Statut.INIT;
 
     public void demarrerSynchronisation() {
+        String network = null;
         try {
-            tryToConnect();
+            network = tryToConnect();
+            System.out.print("Avancement: " + statut + " -> ");
+            statut = Statut.CONNECT_OK;
+            System.out.print(statut);
         } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+            System.out.print("Avancement: " + statut + " -> ");
+            statut = Statut.CONNECT_ERROR;
+            System.out.print(statut);
         }
+        System.out.println(" Reseau:" + network);
+        try {
+            tryToSync(network);
+            System.out.print("Avancement: " + statut + " -> ");
+            statut = Statut.TRANSFERT_OK;
+            System.out.print(statut);
+
+        } catch (InterruptedException e) {
+            System.out.print("Avancement: " + statut + " -> ");
+            statut = Statut.TRANSFERT_ERROR;
+            System.out.print(statut);
+        }
+        System.out.println(" Reseau:" + network);
     }
 
-    private void tryToConnect() throws ExecutionException, InterruptedException {
+    private void tryToSync(String network) throws InterruptedException {
+        System.out.print("Avancement: " + statut + " -> ");
+        statut = Statut.TRANSFERT;
+        System.out.println(statut);
+        Reseau.synchroViaReseau(network);
+    }
+
+    private String tryToConnect() throws ExecutionException, InterruptedException {
+        System.out.print("Avancement: " + statut + " -> ");
+        statut = Statut.CONNECT;
+        System.out.println(statut);
         List<Connector> connections = new ArrayList<>();
-        ArrayList<String> networks = Reseau.listeDesReseaux();
+        List<String> networks = Reseau.listeDesReseaux();
+//        List<String> networks = Arrays.asList("3G", "3G");
 
         for (String network : networks)
             connections.add(new Connector(network));
@@ -32,5 +63,6 @@ public class Affichage {
         ExecutorService connectionExecutor = Executors.newCachedThreadPool();
         String connectionResult = connectionExecutor.invokeAny(connections);
         connectionExecutor.shutdown();
+        return connectionResult;
     }
 }
