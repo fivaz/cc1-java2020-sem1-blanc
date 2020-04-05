@@ -1,0 +1,5 @@
+package metier;
+
+public enum Statut {
+    INIT, CONNECT, CONNECT_OK, CONNECT_ERROR, TRANSFERT, TRANSFERT_OK, TRANSFERT_ERROR
+}
