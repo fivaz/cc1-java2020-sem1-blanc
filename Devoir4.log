@@ -1,0 +1,7 @@
+[main] INFO  vue.Affichage  - Avancement: CONNECT -> INIT
+[main] INFO  vue.Affichage  - Avancement: CONNECT_OK -> CONNECT Reseau:Wifi
+[main] INFO  vue.Affichage  - Avancement: TRANSFERT -> CONNECT_OK Reseau:Wifi
+[main] INFO  vue.Affichage  - Avancement: TRANSFERT_ERROR -> TRANSFERT Reseau:Wifi
+[main] INFO  vue.Affichage  - Avancement: CONNECT -> INIT
+[main] INFO  vue.Affichage  - Avancement: CONNECT_OK -> CONNECT Reseau:Bluetooth
+[main] INFO  vue.Affichage  - Avancement: TRANSFERT -> CONNECT_OK Reseau:Bluetooth
